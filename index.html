@@ -15,13 +15,13 @@
         display: flex;
         flex-direction: column;
         min-height: 100vh;
-        background-color: #ff8a3d;
+        background-color: #0b1836;
         font-family: "Poppins", sans-serif;
       }
       h2 {
         font-size: 20px;
         margin: 20px 0;
-        color: #4a2b12;
+        color: #ffffff;
       }
       main {
         flex: 1;
@@ -63,7 +63,7 @@
       }
       .cartao {
         width: 260px;
-        height: 200px;
+        height: 250px;
         flex: 0 0 260px;
         perspective: 1000px;
       }
@@ -71,8 +71,9 @@
         display: block;
         width: 100%;
         max-width: 100%;
-        height: 140px;
+        height: 125px;
         object-fit: cover;
+        background-color: #e7e7e7; /* aparece enquanto a imagem carrega */
       }
       .cartao-categoria {
         display: block;
@@ -106,8 +107,9 @@
         background-color: #fff;
       }
       .cartao-frente p, .cartao-verso p {
-        padding: 8px 12px;
-        font-size: 14px;
+        padding: 6px 12px;
+        font-size: 13px;
+        line-height: 1.35;
       }
       .cartao-verso {
         transform: rotateY(180deg);
@@ -130,16 +132,16 @@
     <header class="cabecalho">
       <h1 class="nome-site">Óptica Flashcards</h1>
     </header>
-
+ 
     <main>
       <h2>Descubra a resposta passando o mouse</h2>
       <section>
-
+ 
         <!-- PROPRIEDADES DA LUZ -->
         <article class="cartao">
           <div class="cartao-interno">
             <div class="cartao-frente">
-              <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Crepuscular_rays_colour.jpg" alt="Raios de sol entre as nuvens" class="cartao-imagem">
+              <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Crepuscular_rays_mexico_01.jpg" alt="Raios de sol entre as nuvens" class="cartao-imagem" onerror="this.style.display=class="cartao-imagem">apos;noneclass="cartao-imagem">apos;">
               <span class="cartao-categoria">Propriedades da luz</span>
               <p>Por que os raios de sol aparecem retos entre as nuvens?</p>
             </div>
@@ -148,12 +150,12 @@
             </div>
           </div>
         </article>
-
+ 
         <!-- REFLEXÃO E ESPELHOS -->
         <article class="cartao">
           <div class="cartao-interno">
             <div class="cartao-frente">
-              <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Mount_Hood_reflected_in_Mirror_Lake,_Oregon.jpg" alt="Montanha refletida em um lago" class="cartao-imagem">
+              <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Mount_Hood_reflected_in_Mirror_Lake,_Oregon.jpg" alt="Montanha refletida em um lago" class="cartao-imagem" onerror="this.style.display=class="cartao-imagem">apos;noneclass="cartao-imagem">apos;">
               <span class="cartao-categoria">Reflexão e espelhos</span>
               <p>Por que a montanha aparece invertida na água do lago?</p>
             </div>
@@ -162,12 +164,12 @@
             </div>
           </div>
         </article>
-
+ 
         <!-- FENÔMENOS DA LUZ -->
         <article class="cartao">
           <div class="cartao-interno">
             <div class="cartao-frente">
-              <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Dispersive_Prism_Illustration_by_Spigget.jpg" alt="Prisma dispersando a luz branca" class="cartao-imagem">
+              <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Dispersive_Prism_Illustration_by_Spigget.jpg" alt="Prisma dispersando a luz branca" class="cartao-imagem" onerror="this.style.display=class="cartao-imagem">apos;noneclass="cartao-imagem">apos;">
               <span class="cartao-categoria">Fenômenos da luz</span>
               <p>O que acontece com a luz branca ao atravessar um prisma?</p>
             </div>
@@ -176,11 +178,11 @@
             </div>
           </div>
         </article>
-
+ 
         <article class="cartao">
           <div class="cartao-interno">
             <div class="cartao-frente">
-              <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Double-alaskan-rainbow.jpg" alt="Arco-íris duplo no céu" class="cartao-imagem">
+              <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Double-alaskan-rainbow.jpg" alt="Arco-íris duplo no céu" class="cartao-imagem" onerror="this.style.display=class="cartao-imagem">apos;noneclass="cartao-imagem">apos;">
               <span class="cartao-categoria">Fenômenos da luz</span>
               <p>Como se forma um arco-íris no céu?</p>
             </div>
@@ -189,12 +191,12 @@
             </div>
           </div>
         </article>
-
+ 
         <!-- LENTES E ÓPTICA -->
         <article class="cartao">
           <div class="cartao-interno">
             <div class="cartao-frente">
-              <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Magnifying_glass.jpg" alt="Lupa com lente convergente" class="cartao-imagem">
+              <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Magnifying_glass.jpg" alt="Lupa com lente convergente" class="cartao-imagem" onerror="this.style.display=class="cartao-imagem">apos;noneclass="cartao-imagem">apos;">
               <span class="cartao-categoria">Lentes e óptica</span>
               <p>Por que a lupa aumenta a imagem dos objetos?</p>
             </div>
@@ -203,12 +205,12 @@
             </div>
           </div>
         </article>
-
+ 
         <!-- ÓPTICA DO CORPO HUMANO -->
         <article class="cartao">
           <div class="cartao-interno">
             <div class="cartao-frente">
-              <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Human_eye_cross-sectional_view_grayscale.png" alt="Corte transversal do olho humano" class="cartao-imagem">
+              <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Human_eye_cross-sectional_view_grayscale.png" alt="Corte transversal do olho humano" class="cartao-imagem" onerror="this.style.display=class="cartao-imagem">apos;noneclass="cartao-imagem">apos;">
               <span class="cartao-categoria">Óptica do olho</span>
               <p>Qual parte do olho forma a imagem, como o filme de uma câmera?</p>
             </div>
@@ -217,11 +219,11 @@
             </div>
           </div>
         </article>
-
+ 
         <article class="cartao">
           <div class="cartao-interno">
             <div class="cartao-frente">
-              <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Iris.eye.225px.jpg" alt="Íris e pupila do olho humano" class="cartao-imagem">
+              <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Iris.eye.225px.jpg" alt="Íris e pupila do olho humano" class="cartao-imagem" onerror="this.style.display=class="cartao-imagem">apos;noneclass="cartao-imagem">apos;">
               <span class="cartao-categoria">Óptica do olho</span>
               <p>Qual a função da íris e da pupila no olho?</p>
             </div>
@@ -230,12 +232,13 @@
             </div>
           </div>
         </article>
-
+ 
       </section>
     </main>
-
+ 
     <footer>
       <p>Projeto de estudo de Óptica</p>
     </footer>
   </body>
 </html>
+ 
