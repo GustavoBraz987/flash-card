@@ -1,34 +1,260 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8"> 
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-    </head>
-    <body>
-        <header>
-            <h1>Confere Aí</h1>
-            <nav>
-                <a href="#">inicio</a>
-            </nav>
-        </header>
-        <main>
-            <h2>Descubra a verdade passando o mouse</h2>
-            <article>
-                <div>
-                    <div>
-                        <img src="https://www.nationalgeographicbrasil.com/animais/2024/04/por-que-esses-filhotes-de-pinguim-imperador-estao-pulando-de-um-penhasco-de-15-metros-de-altura" alt="">
-                        <p>pinguins conseguem voar como passaros!</p>
-                    </div>
-                    <div>
-                        <img src="https://www.nationalgeographicbrasil.com/animais/2024/04/por-que-esses-filhotes-de-pinguim-imperador-estao-pulando-de-um-penhasco-de-15-metros-de-altura" alt="">
-                        <p>pinguins não voam mais são exelentes nadadores</p>
-                    </div>
-                </div>
-            </article>
-        </main>
-        <footer>
-            <p>Projeto feito por gustavo</p>
-        </footer>
-    </body>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Espectro — Flashcards de Óptica</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+  <div class="bg-spectrum" aria-hidden="true"></div>
+
+  <header class="topo">
+    <div class="marca">
+      <span class="marca-icone">◐</span>
+      <div>
+        <p class="marca-titulo">Espectro</p>
+        <p class="marca-sub">flashcards de óptica</p>
+      </div>
+    </div>
+    <div class="contador" id="contador">0 / 0 estudados</div>
+  </header>
+
+  <main>
+    <section class="intro">
+      <h1>A luz, decomposta em cartões.</h1>
+      <p>Cinco frentes do estudo da óptica — da natureza da luz até como o olho humano a interpreta. Escolha uma categoria, vire o cartão, avance.</p>
+    </section>
+
+    <nav class="filtros" id="filtros" aria-label="Filtrar por categoria">
+      <button class="filtro ativo" data-cat="todas">
+        <span class="filtro-ponto" style="--cor: var(--c-todas)"></span>Todas
+      </button>
+      <button class="filtro" data-cat="propriedades">
+        <span class="filtro-ponto" style="--cor: var(--c-propriedades)"></span>Propriedades da luz
+      </button>
+      <button class="filtro" data-cat="reflexao">
+        <span class="filtro-ponto" style="--cor: var(--c-reflexao)"></span>Reflexão &amp; espelhos
+      </button>
+      <button class="filtro" data-cat="fenomenos">
+        <span class="filtro-ponto" style="--cor: var(--c-fenomenos)"></span>Fenômenos da luz
+      </button>
+      <button class="filtro" data-cat="lentes">
+        <span class="filtro-ponto" style="--cor: var(--c-lentes)"></span>Lentes &amp; óptica
+      </button>
+      <button class="filtro" data-cat="olho">
+        <span class="filtro-ponto" style="--cor: var(--c-olho)"></span>Óptica do olho
+      </button>
+    </nav>
+
+    <section class="palco">
+      <button class="nav-seta" id="anterior" aria-label="Cartão anterior">‹</button>
+
+      <div class="cartao-area">
+        <div class="progresso-trilha"><div class="progresso-preenchido" id="progresso"></div></div>
+
+        <div class="cartao" id="cartao" tabindex="0" role="button" aria-label="Virar cartão">
+          <div class="cartao-interior" id="cartaoInterior">
+            <div class="face frente">
+              <span class="face-tag" id="tagFrente">categoria</span>
+              <p class="face-rotulo">Pergunta</p>
+              <p class="face-texto" id="textoFrente">—</p>
+              <span class="face-dica">toque para virar</span>
+            </div>
+            <div class="face verso">
+              <span class="face-tag" id="tagVerso">categoria</span>
+              <p class="face-rotulo">Resposta</p>
+              <p class="face-texto" id="textoVerso">—</p>
+              <span class="face-dica">toque para voltar</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="controles">
+          <button class="botao botao-fantasma" id="embaralhar">↻ Embaralhar</button>
+          <button class="botao botao-primario" id="marcar">✓ Sei essa</button>
+          <button class="botao botao-fantasma" id="alternarModo">▦ Ver todos</button>
+        </div>
+      </div>
+
+      <button class="nav-seta" id="proximo" aria-label="Próximo cartão">›</button>
+    </section>
+
+    <section class="grade" id="grade" hidden></section>
+  </main>
+
+  <footer class="rodape">
+    <p>Feito para revisão de óptica — luz, espelhos, lentes e o olho humano.</p>
+  </footer>
+
+<script>
+const dados = [
+  // ---------- PROPRIEDADES DA LUZ ----------
+  {cat:"propriedades", rotulo:"Propriedades da luz", pergunta:"O que é a luz, do ponto de vista físico?", resposta:"Uma onda eletromagnética que também se comporta como partícula (fóton) — a chamada dualidade onda-partícula."},
+  {cat:"propriedades", rotulo:"Propriedades da luz", pergunta:"Qual é a velocidade da luz no vácuo?", resposta:"Aproximadamente 300.000 km/s (299.792.458 m/s), representada pela letra c."},
+  {cat:"propriedades", rotulo:"Propriedades da luz", pergunta:"O que diz o princípio da propagação retilínea da luz?", resposta:"Em um meio homogêneo e transparente, a luz se propaga em linha reta, formando os chamados raios de luz."},
+  {cat:"propriedades", rotulo:"Propriedades da luz", pergunta:"Qual a diferença entre um corpo luminoso e um corpo iluminado?", resposta:"Luminoso é o que produz sua própria luz (o Sol, uma lâmpada); iluminado é o que apenas reflete a luz recebida de outro corpo (a Lua)."},
+  {cat:"propriedades", rotulo:"Propriedades da luz", pergunta:"O que é o espectro eletromagnético?", resposta:"O conjunto de todas as radiações eletromagnéticas ordenadas por frequência/comprimento de onda, do rádio ao gama — a luz visível é apenas uma faixa estreita dele."},
+  {cat:"propriedades", rotulo:"Propriedades da luz", pergunta:"Por que enxergamos cores diferentes na luz visível?", resposta:"Porque cada comprimento de onda da faixa visível (aprox. 380 a 750 nm) é interpretado pelo olho como uma cor diferente, do violeta ao vermelho."},
+  {cat:"propriedades", rotulo:"Propriedades da luz", pergunta:"O que caracteriza um meio translúcido?", resposta:"Deixa a luz passar, mas de forma difusa, sem permitir a visão nítida de objetos através dele (como um vidro fosco)."},
+
+  // ---------- REFLEXÃO E ESPELHOS ----------
+  {cat:"reflexao", rotulo:"Reflexão & espelhos", pergunta:"Quais são as duas leis da reflexão da luz?", resposta:"1) O raio incidente, a normal e o raio refletido estão no mesmo plano. 2) O ângulo de incidência é igual ao ângulo de reflexão."},
+  {cat:"reflexao", rotulo:"Reflexão & espelhos", pergunta:"Que tipo de imagem um espelho plano forma?", resposta:"Uma imagem virtual, direita e do mesmo tamanho do objeto, simetricamente posicionada atrás do espelho."},
+  {cat:"reflexao", rotulo:"Reflexão & espelhos", pergunta:"O que é reflexão difusa (ou irregular)?", resposta:"Ocorre quando a luz incide sobre uma superfície rugosa e os raios refletidos seguem direções variadas — é o que permite enxergar objetos não polidos."},
+  {cat:"reflexao", rotulo:"Reflexão & espelhos", pergunta:"Qual a principal aplicação de um espelho côncavo?", resposta:"Concentrar a luz refletida em um ponto (o foco), usado em faróis, telescópios refletores e espelhos de maquiagem/dentista."},
+  {cat:"reflexao", rotulo:"Reflexão & espelhos", pergunta:"Qual a principal aplicação de um espelho convexo?", resposta:"Ampliar o campo de visão, pois forma imagens sempre virtuais e reduzidas — usado em retrovisores e espelhos de segurança."},
+  {cat:"reflexao", rotulo:"Reflexão & espelhos", pergunta:"O que é o foco de um espelho esférico?", resposta:"O ponto onde os raios de luz paralelos ao eixo principal convergem (côncavo) ou de onde parecem divergir (convexo) após a reflexão."},
+  {cat:"reflexao", rotulo:"Reflexão & espelhos", pergunta:"Quando um espelho côncavo forma uma imagem real?", resposta:"Quando o objeto está posicionado além do centro de curvatura ou entre o foco e o centro — a imagem se projeta à frente do espelho."},
+
+  // ---------- FENÔMENOS DA LUZ ----------
+  {cat:"fenomenos", rotulo:"Fenômenos da luz", pergunta:"O que é refração da luz?", resposta:"A mudança de velocidade (e geralmente de direção) da luz ao passar de um meio para outro com densidade óptica diferente."},
+  {cat:"fenomenos", rotulo:"Fenômenos da luz", pergunta:"O que é o índice de refração de um meio?", resposta:"A razão entre a velocidade da luz no vácuo e a velocidade da luz naquele meio (n = c/v); quanto maior o índice, mais o meio desvia a luz."},
+  {cat:"fenomenos", rotulo:"Fenômenos da luz", pergunta:"O que causa a formação de um arco-íris?", resposta:"A dispersão da luz branca: as gotas de água refratam e refletem a luz solar, separando-a nas cores do espectro visível."},
+  {cat:"fenomenos", rotulo:"Fenômenos da luz", pergunta:"O que é difração da luz?", resposta:"O desvio da luz ao contornar obstáculos ou passar por fendas estreitas, evidenciando seu comportamento ondulatório."},
+  {cat:"fenomenos", rotulo:"Fenômenos da luz", pergunta:"O que é a reflexão total interna?", resposta:"Quando a luz, ao passar de um meio mais denso para um menos denso com ângulo maior que o crítico, é totalmente refletida em vez de refratada — princípio das fibras ópticas."},
+  {cat:"fenomenos", rotulo:"Fenômenos da luz", pergunta:"O que é polarização da luz?", resposta:"A filtragem das vibrações do campo elétrico da onda luminosa em uma única direção — usada em óculos de sol e telas LCD."},
+  {cat:"fenomenos", rotulo:"Fenômenos da luz", pergunta:"Por que o céu é azul durante o dia?", resposta:"Por espalhamento de Rayleigh: a atmosfera espalha mais intensamente os comprimentos de onda curtos (azul) do que os longos (vermelho)."},
+
+  // ---------- LENTES E ÓPTICA ----------
+  {cat:"lentes", rotulo:"Lentes & óptica", pergunta:"Qual a diferença entre uma lente convergente e uma divergente?", resposta:"A convergente (bordas finas) concentra os raios paralelos em um foco real; a divergente (bordas grossas) espalha os raios, criando um foco virtual."},
+  {cat:"lentes", rotulo:"Lentes & óptica", pergunta:"O que é a distância focal de uma lente?", resposta:"A distância entre o centro óptico da lente e o seu ponto focal, onde os raios paralelos convergem ou parecem divergir."},
+  {cat:"lentes", rotulo:"Lentes & óptica", pergunta:"O que é a vergência (grau) de uma lente e qual sua unidade?", resposta:"O inverso da distância focal em metros (V = 1/f), medida em dioptrias — é o 'grau' usado em receitas de óculos."},
+  {cat:"lentes", rotulo:"Lentes & óptica", pergunta:"Que tipo de lente corrige a miopia?", resposta:"Uma lente divergente, que afasta o ponto de convergência da imagem para que ela recaia exatamente sobre a retina."},
+  {cat:"lentes", rotulo:"Lentes & óptica", pergunta:"Que tipo de lente corrige a hipermetropia?", resposta:"Uma lente convergente, que aproxima o ponto de convergência da imagem para a retina."},
+  {cat:"lentes", rotulo:"Lentes & óptica", pergunta:"O que é aberração cromática em uma lente?", resposta:"A formação de imagens com bordas coloridas, causada pela refração desigual das diferentes cores (comprimentos de onda) que compõem a luz branca."},
+
+  // ---------- ÓPTICA DO CORPO HUMANO ----------
+  {cat:"olho", rotulo:"Óptica do olho", pergunta:"Qual a função da córnea no olho humano?", resposta:"É a primeira e mais potente lente do olho: uma membrana transparente que faz a maior parte da refração inicial da luz que entra."},
+  {cat:"olho", rotulo:"Óptica do olho", pergunta:"Qual a função do cristalino?", resposta:"Atuar como uma lente convergente de foco ajustável, mudando de curvatura (acomodação visual) para focar objetos a diferentes distâncias."},
+  {cat:"olho", rotulo:"Óptica do olho", pergunta:"Onde a imagem precisa se formar para uma visão nítida?", resposta:"Exatamente sobre a retina, a camada sensível à luz no fundo do olho, que converte a luz em sinais nervosos enviados ao cérebro."},
+  {cat:"olho", rotulo:"Óptica do olho", pergunta:"O que é a acomodação visual?", resposta:"O ajuste automático da curvatura do cristalino, feito pelos músculos ciliares, para manter o foco nítido em objetos próximos ou distantes."},
+  {cat:"olho", rotulo:"Óptica do olho", pergunta:"O que causa o astigmatismo?", resposta:"Uma curvatura irregular da córnea ou do cristalino, que faz a luz focar em mais de um ponto, distorcendo a imagem."},
+  {cat:"olho", rotulo:"Óptica do olho", pergunta:"O que é a presbiopia (vista cansada)?", resposta:"A perda gradual da elasticidade do cristalino com a idade, reduzindo a capacidade de acomodação para focar objetos próximos."},
+  {cat:"olho", rotulo:"Óptica do olho", pergunta:"Qual a função da íris e da pupila?", resposta:"A íris é o músculo colorido que controla o tamanho da pupila, a abertura por onde a luz entra, regulando a quantidade de luz que chega à retina."},
+];
+
+let ordem = dados.map((_, i) => i);
+let atual = 0;
+let virado = false;
+let estudados = new Set();
+let categoriaAtiva = "todas";
+
+const cartao = document.getElementById("cartao");
+const cartaoInterior = document.getElementById("cartaoInterior");
+const tagFrente = document.getElementById("tagFrente");
+const tagVerso = document.getElementById("tagVerso");
+const textoFrente = document.getElementById("textoFrente");
+const textoVerso = document.getElementById("textoVerso");
+const contador = document.getElementById("contador");
+const progresso = document.getElementById("progresso");
+const grade = document.getElementById("grade");
+const palco = document.querySelector(".palco");
+
+function listaAtual() {
+  return categoriaAtiva === "todas" ? ordem : ordem.filter(i => dados[i].cat === categoriaAtiva);
+}
+
+function renderizarCartao() {
+  const lista = listaAtual();
+  if (lista.length === 0) return;
+  if (atual >= lista.length) atual = 0;
+  const item = dados[lista[atual]];
+
+  virado = false;
+  cartaoInterior.classList.remove("virado");
+  cartao.setAttribute("data-cor", item.cat);
+
+  tagFrente.textContent = item.rotulo;
+  tagVerso.textContent = item.rotulo;
+  textoFrente.textContent = item.pergunta;
+  textoVerso.textContent = item.resposta;
+
+  contador.textContent = `${atual + 1} / ${lista.length} nesta categoria · ${estudados.size} marcados no total`;
+  progresso.style.width = `${((atual + 1) / lista.length) * 100}%`;
+}
+
+function virar() {
+  virado = !virado;
+  cartaoInterior.classList.toggle("virado", virado);
+}
+
+function irPara(delta) {
+  const lista = listaAtual();
+  atual = (atual + delta + lista.length) % lista.length;
+  renderizarCartao();
+}
+
+function embaralhar() {
+  for (let i = ordem.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [ordem[i], ordem[j]] = [ordem[j], ordem[i]];
+  }
+  atual = 0;
+  renderizarCartao();
+}
+
+function marcarComoSabido() {
+  const lista = listaAtual();
+  estudados.add(lista[atual]);
+  irPara(1);
+}
+
+function construirGrade() {
+  grade.innerHTML = "";
+  const lista = listaAtual();
+  lista.forEach(i => {
+    const item = dados[i];
+    const mini = document.createElement("article");
+    mini.className = "mini-cartao";
+    mini.setAttribute("data-cor", item.cat);
+    mini.innerHTML = `
+      <span class="face-tag">${item.rotulo}</span>
+      <p class="mini-pergunta">${item.pergunta}</p>
+      <p class="mini-resposta">${item.resposta}</p>
+    `;
+    mini.addEventListener("click", () => mini.classList.toggle("mini-aberto"));
+    grade.appendChild(mini);
+  });
+}
+
+document.getElementById("filtros").addEventListener("click", (e) => {
+  const btn = e.target.closest(".filtro");
+  if (!btn) return;
+  document.querySelectorAll(".filtro").forEach(f => f.classList.remove("ativo"));
+  btn.classList.add("ativo");
+  categoriaAtiva = btn.dataset.cat;
+  atual = 0;
+  renderizarCartao();
+  if (!grade.hidden) construirGrade();
+});
+
+cartao.addEventListener("click", virar);
+cartao.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); virar(); } });
+document.getElementById("anterior").addEventListener("click", () => irPara(-1));
+document.getElementById("proximo").addEventListener("click", () => irPara(1));
+document.getElementById("embaralhar").addEventListener("click", embaralhar);
+document.getElementById("marcar").addEventListener("click", marcarComoSabido);
+
+document.getElementById("alternarModo").addEventListener("click", (e) => {
+  const modoGrade = grade.hidden;
+  grade.hidden = !modoGrade;
+  palco.hidden = modoGrade;
+  e.target.textContent = modoGrade ? "◐ Modo estudo" : "▦ Ver todos";
+  if (modoGrade) construirGrade();
+});
+
+document.addEventListener("keydown", (e) => {
+  if (palco.hidden) return;
+  if (e.key === "ArrowRight") irPara(1);
+  if (e.key === "ArrowLeft") irPara(-1);
+});
+
+renderizarCartao();
+</script>
+</body>
 </html>

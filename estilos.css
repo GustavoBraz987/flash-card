@@ -1,0 +1,454 @@
+/* ===================================================================
+   ESPECTRO — flashcards de óptica
+   Paleta: noite profunda + um prisma de acentos por categoria
+   =================================================================== */
+
+:root{
+  --bg: #0A0E17;
+  --bg-2: #0F1524;
+  --superficie: #131A2B;
+  --superficie-2: #1A2237;
+  --borda: #2A3552;
+  --texto: #EDF1FA;
+  --texto-fraco: #8E9AB8;
+
+  --c-todas: #EDF1FA;
+  --c-propriedades: #FFB74A;
+  --c-reflexao: #52D7DB;
+  --c-fenomenos: #A78BFA;
+  --c-lentes: #FF80AB;
+  --c-olho: #6FE3A0;
+
+  --fonte-display: "Fraunces", Georgia, serif;
+  --fonte-corpo: "Space Grotesk", system-ui, sans-serif;
+  --fonte-mono: "IBM Plex Mono", monospace;
+
+  --raio: 20px;
+  --sombra: 0 30px 60px -25px rgba(0,0,0,0.6);
+}
+
+*{ box-sizing: border-box; }
+
+html, body{
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--texto);
+  font-family: var(--fonte-corpo);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body{
+  display: flex;
+  flex-direction: column;
+}
+
+/* fundo com feixe de espectro sutil, ancorado atrás de tudo */
+.bg-spectrum{
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(60% 45% at 12% -5%, rgba(255,183,74,0.16), transparent 60%),
+    radial-gradient(50% 40% at 90% 0%, rgba(82,215,219,0.14), transparent 60%),
+    radial-gradient(55% 45% at 50% 110%, rgba(167,139,250,0.12), transparent 60%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+}
+
+::selection{ background: var(--c-fenomenos); color: #0A0E17; }
+
+/* ---------------------------- topo ---------------------------- */
+
+.topo{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28px clamp(20px, 5vw, 64px) 0;
+}
+
+.marca{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.marca-icone{
+  font-size: 26px;
+  line-height: 1;
+  background: conic-gradient(from 180deg, var(--c-propriedades), var(--c-reflexao), var(--c-fenomenos), var(--c-lentes), var(--c-olho), var(--c-propriedades));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.marca-titulo{
+  margin: 0;
+  font-family: var(--fonte-display);
+  font-weight: 600;
+  font-size: 20px;
+  letter-spacing: 0.02em;
+}
+
+.marca-sub{
+  margin: 0;
+  font-size: 12px;
+  color: var(--texto-fraco);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.contador{
+  font-family: var(--fonte-mono);
+  font-size: 12px;
+  color: var(--texto-fraco);
+  padding: 8px 14px;
+  border: 1px solid var(--borda);
+  border-radius: 999px;
+  background: rgba(255,255,255,0.02);
+  white-space: nowrap;
+}
+
+/* ---------------------------- main ---------------------------- */
+
+main{
+  flex: 1;
+  padding: 0 clamp(20px, 5vw, 64px) 48px;
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.intro{
+  padding: 56px 0 32px;
+  max-width: 620px;
+}
+
+.intro h1{
+  font-family: var(--fonte-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(32px, 5vw, 46px);
+  line-height: 1.1;
+  margin: 0 0 14px;
+}
+
+.intro p{
+  color: var(--texto-fraco);
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ---------------------------- filtros ---------------------------- */
+
+.filtros{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 40px;
+}
+
+.filtro{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--fonte-corpo);
+  font-size: 13px;
+  color: var(--texto-fraco);
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: 999px;
+  padding: 9px 16px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+
+.filtro-ponto{
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--cor);
+  box-shadow: 0 0 8px var(--cor);
+}
+
+.filtro:hover{
+  color: var(--texto);
+  transform: translateY(-1px);
+}
+
+.filtro.ativo{
+  color: var(--texto);
+  border-color: var(--borda);
+  background: var(--superficie-2);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
+}
+
+/* ---------------------------- palco / cartão ---------------------------- */
+
+.palco{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(8px, 3vw, 28px);
+}
+
+.nav-seta{
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--borda);
+  background: var(--superficie);
+  color: var(--texto);
+  font-size: 20px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.nav-seta:hover{
+  background: var(--superficie-2);
+  transform: scale(1.05);
+}
+
+.cartao-area{
+  width: min(560px, 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+}
+
+.progresso-trilha{
+  width: 100%;
+  height: 3px;
+  background: var(--superficie-2);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progresso-preenchido{
+  height: 100%;
+  background: linear-gradient(90deg, var(--c-propriedades), var(--c-reflexao), var(--c-fenomenos), var(--c-lentes), var(--c-olho));
+  transition: width 0.3s ease;
+}
+
+.cartao{
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  perspective: 1600px;
+  cursor: pointer;
+  outline: none;
+}
+
+.cartao-interior{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  border-radius: var(--raio);
+}
+
+.cartao-interior.virado{
+  transform: rotateY(180deg);
+}
+
+.face{
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: var(--raio);
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  box-shadow: var(--sombra);
+  padding: clamp(24px, 5vw, 40px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 14px;
+  position: relative;
+  overflow: hidden;
+}
+
+.face::before{
+  content: "";
+  position: absolute;
+  top: -1px; left: -1px; right: -1px;
+  height: 4px;
+  background: var(--cor-atual, var(--c-todas));
+  filter: blur(0.3px);
+}
+
+.cartao[data-cor="propriedades"] .face{ --cor-atual: var(--c-propriedades); }
+.cartao[data-cor="reflexao"] .face{ --cor-atual: var(--c-reflexao); }
+.cartao[data-cor="fenomenos"] .face{ --cor-atual: var(--c-fenomenos); }
+.cartao[data-cor="lentes"] .face{ --cor-atual: var(--c-lentes); }
+.cartao[data-cor="olho"] .face{ --cor-atual: var(--c-olho); }
+
+.verso{
+  transform: rotateY(180deg);
+  background: var(--superficie-2);
+}
+
+.face-tag{
+  font-family: var(--fonte-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--cor-atual, var(--texto-fraco));
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  padding: 4px 10px;
+}
+
+.face-rotulo{
+  margin: 0;
+  font-size: 12px;
+  color: var(--texto-fraco);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+.face-texto{
+  margin: 0;
+  font-family: var(--fonte-display);
+  font-weight: 500;
+  font-size: clamp(19px, 3vw, 25px);
+  line-height: 1.35;
+}
+
+.face-dica{
+  position: absolute;
+  bottom: 18px;
+  right: 22px;
+  font-family: var(--fonte-mono);
+  font-size: 11px;
+  color: var(--texto-fraco);
+}
+
+.controles{
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.botao{
+  font-family: var(--fonte-corpo);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 11px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--borda);
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.2s ease, opacity 0.2s ease;
+}
+
+.botao:hover{ transform: translateY(-1px); }
+
+.botao-fantasma{
+  background: var(--superficie);
+  color: var(--texto);
+}
+
+.botao-fantasma:hover{ background: var(--superficie-2); }
+
+.botao-primario{
+  background: var(--texto);
+  color: var(--bg);
+  border-color: var(--texto);
+}
+
+.botao-primario:hover{ opacity: 0.88; }
+
+/* ---------------------------- modo grade ---------------------------- */
+
+.grade{
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 14px;
+}
+
+.mini-cartao{
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: 14px;
+  padding: 18px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+}
+
+.mini-cartao::before{
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--cor-atual, var(--c-todas));
+}
+
+.mini-cartao[data-cor="propriedades"]{ --cor-atual: var(--c-propriedades); }
+.mini-cartao[data-cor="reflexao"]{ --cor-atual: var(--c-reflexao); }
+.mini-cartao[data-cor="fenomenos"]{ --cor-atual: var(--c-fenomenos); }
+.mini-cartao[data-cor="lentes"]{ --cor-atual: var(--c-lentes); }
+.mini-cartao[data-cor="olho"]{ --cor-atual: var(--c-olho); }
+
+.mini-cartao:hover{ border-color: var(--cor-atual, var(--borda)); }
+
+.mini-cartao .face-tag{
+  font-size: 10px;
+  color: var(--cor-atual, var(--texto-fraco));
+}
+
+.mini-pergunta{
+  font-family: var(--fonte-display);
+  font-size: 16px;
+  margin: 10px 0 0;
+  line-height: 1.35;
+}
+
+.mini-resposta{
+  font-size: 13px;
+  color: var(--texto-fraco);
+  line-height: 1.5;
+  margin: 10px 0 0;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease, margin 0.3s ease;
+}
+
+.mini-aberto .mini-resposta{
+  max-height: 220px;
+  opacity: 1;
+}
+
+/* ---------------------------- rodapé ---------------------------- */
+
+.rodape{
+  text-align: center;
+  padding: 20px;
+  font-size: 12px;
+  color: var(--texto-fraco);
+  border-top: 1px solid var(--borda);
+}
+
+/* ---------------------------- responsivo ---------------------------- */
+
+@media (max-width: 640px){
+  .topo{ flex-direction: column; align-items: flex-start; gap: 10px; }
+  .palco{ gap: 8px; }
+  .nav-seta{ width: 36px; height: 36px; font-size: 16px; }
+  .cartao{ aspect-ratio: 3 / 4; }
+}
+
+/* respeita usuários que preferem menos movimento */
+@media (prefers-reduced-motion: reduce){
+  .cartao-interior, .botao, .filtro, .nav-seta, .mini-resposta{
+    transition: none !important;
+  }
+}
