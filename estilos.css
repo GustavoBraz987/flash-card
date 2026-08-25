@@ -1,0 +1,120 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #0b1836;
+  font-family: "Poppins", sans-serif;
+}
+h2 {
+  font-size: 20px;
+  margin: 20px 0;
+  color: #ffffff;
+}
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+footer {
+  background-color: #3c7cf3;
+  padding: 15px 25px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.cabecalho {
+  background-color: #3c7cf3;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px 25px;
+}
+section {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 10px;
+  max-width: 860px;
+}
+h1.nome-site {
+  font-family: "Abril Fatface", serif;
+  color: #fff;
+  font-size: 24px;
+  align-self: center;
+}
+.cartao {
+  width: 260px;
+  height: 250px;
+  flex: 0 0 260px;
+  perspective: 1000px;
+}
+.cartao-imagem {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: 125px;
+  object-fit: cover;
+  background-color: #e7e7e7; /* aparece enquanto a imagem carrega */
+}
+.cartao-categoria {
+  display: block;
+  font-size: 11px;
+  color: #3c7cf3;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 4px 12px 0;
+}
+.cartao-interno {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+}
+.cartao-frente, .cartao-verso {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+}
+.cartao-frente p, .cartao-verso p {
+  padding: 6px 12px;
+  font-size: 13px;
+  line-height: 1.35;
+}
+.cartao-verso {
+  transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
+  padding: 16px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.cartao-verso p {
+  padding: 0;
+}
+.cartao:hover .cartao-interno {
+  transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
+}
